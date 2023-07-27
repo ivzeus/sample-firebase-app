@@ -1,0 +1,18 @@
+name: buildQA
+run-name: ${{ github.actor }} is running manual build workflow
+on:
+    pull_request:
+        types:
+        - closed
+        branches:
+        - qa
+jobs:
+    build:
+        if: github.event.pull_request.merged == true
+        uses: ivzeus/sample-firebase-app/.github/workflows/build.yml@qa
+        with:
+            FORCE_UPLOAD: true
+
+    # deploy:
+    #     needs: [build]
+    #     uses: 
