@@ -12,7 +12,7 @@ app.use(helmet());
 
 app.get("/", (req, res) => {
   const buildSignature = readFileSync("./_buildSignature.txt", "utf8");
-  res.send(`Build ${buildSignature}`);
+  res.send(`i'm ok - ${buildSignature}`);
 });
 
 app.listen(3000, () => {
