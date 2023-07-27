@@ -20,7 +20,7 @@ jobs:
       - run: echo "Upload build to ${{ env.GKE_REPO }}"
 
   build:
-    if: $FORCE_UPLOAD
+    if: inputs.FORCE_UPLOAD
     needs: [init]
     runs-on: ubuntu-latest
     steps:
