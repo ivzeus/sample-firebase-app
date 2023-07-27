@@ -1,0 +1,35 @@
+name: deploy
+run-name: ${{ github.actor }} has invoked build workflow
+on:
+    workflow_call:
+        inputs:
+            PROJECT:
+                required: true
+                type: string
+            CLUSTER:
+                required: true
+                type: string
+            ZONE:
+                required: true
+                type: string
+            DEPLOYMENT:
+                required: true
+                type: string
+            
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+        -
+            name: GCP Auth
+            uses: google-github-actions/auth@v1
+            with:
+                credentials_json: ${{ secrets.GKE_CREDENTIALS }}
+        - 
+            name: Set up Cloud SDK
+            uses: google-github-actions/setup-gcloud@v1
+            with:
+                install_components: kubectl
+        - run: echo "Project ${{ inputs.PROJECT }}"
+        - run: echo "Cluster ${{ inputs.CLUSTER }} - zone ${{ inputs.ZONE }}"
+        - run: echo "Deploying %{{ inputs.IMAGE }} to ${{ inputs.DEPLOYMENT }}"

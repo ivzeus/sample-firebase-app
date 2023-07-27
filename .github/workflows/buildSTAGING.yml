@@ -1,15 +1,15 @@
 name: buildQA
-run-name: ${{ github.actor }} is running QA build workflow
+run-name: ${{ github.actor }} is running STAGING build workflow
 on:
     pull_request:
         types:
         - closed
         branches:
-        - qa
+        - main
 jobs:
     build:
         if: github.event.pull_request.merged == true
-        uses: ivzeus/sample-firebase-app/.github/workflows/build.yml@qa
+        uses: ivzeus/sample-firebase-app/.github/workflows/build.yml@main
         with:
             FORCE_UPLOAD: true
         secrets: inherit
@@ -17,7 +17,7 @@ jobs:
     deploy:
         if: github.event.pull_request.merged == true
         needs: [build]
-        uses: ivzeus/sample-firebase-app/.github/workflows/deploy.yml@qa
+        uses: ivzeus/sample-firebase-app/.github/workflows/deploy.yml@main
         with:
             PROJECT: ${{ vars.STAGING_GKE_PROJECT }}
             CLUSTER: ${{ vars.STAGING_GKE_CLUSTER }}
