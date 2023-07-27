@@ -43,4 +43,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ vars.GKE_REPO }}:latest
+          file: DockerKube.dockerfile
+          tags: ${{ vars.GKE_REPO }}/firebase-app:latest

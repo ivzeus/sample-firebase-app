@@ -15,9 +15,6 @@ RUN npm i
 # Run npm run build to build the project
 RUN npm run build
 
-# Echo the docker variable PORT to .env file
-RUN echo "PORT=$PORT" > .env
-
 EXPOSE 3000
 
 # Run node ./index.js to start the server
