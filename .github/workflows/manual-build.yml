@@ -38,7 +38,6 @@ jobs:
           registry: ${{ vars.GKE_REGISTRY }}
           username: _json_key
           password: ${{ secrets.GKE_CREDENTIALS }}
-      - run: gcloud auth configure-docker ${{ vars.GKE_REGISTRY }}
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
