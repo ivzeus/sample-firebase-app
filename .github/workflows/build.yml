@@ -1,5 +1,5 @@
 name: build
-run-name: ${{ github.actor }} is running manual build workflow
+run-name: ${{ github.actor }} has invoked build workflow
 on:
   workflow_call:
     inputs:
