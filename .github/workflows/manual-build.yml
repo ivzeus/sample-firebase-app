@@ -24,6 +24,10 @@ jobs:
     needs: [init]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+      - run: echo "${{ BUILD_SIGNATURE }}" > ./server/_buildSignature.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -40,10 +44,3 @@ jobs:
           context: .
           push: true
           tags: user/app:latest
-      #- run: echo "Build ${{ github.run_id }}"
-      #- run: echo "branch ${{ inputs.BRANCH }}"
-      #- run: echo "commit hash ${{ inputs.COMMIT }}"
-      # - run: npm i
-      # - run: npm run build
-      # - run: echo "Push image @${{ github.run_id }}-${{ inputs.COMMIT }} to Artifact registry"
-      # - run: echo "${{ env.DOCKER_IMAGE }}"

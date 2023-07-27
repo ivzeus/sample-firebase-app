@@ -1,6 +1,7 @@
 import express from "express";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import { readFileSync } from "fs";
 
 dotenv.config();
 
@@ -10,7 +11,8 @@ const app = express();
 app.use(helmet());
 
 app.get("/", (req, res) => {
-  res.send("Hello world!");
+  const buildSignature = readFileSync("./_buildSignature.txt", "utf8");
+  res.send(`Build ${buildSignature}`);
 });
 
 app.listen(3000, () => {
