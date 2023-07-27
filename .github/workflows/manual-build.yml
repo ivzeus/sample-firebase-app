@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.sha }}
-      - run: echo "${{ BUILD_SIGNATURE }}" > ./server/_buildSignature.txt
+      - run: echo "${{ needs.init.outputs.BUILD_SIGNATURE }}" > ./server/_buildSignature.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
