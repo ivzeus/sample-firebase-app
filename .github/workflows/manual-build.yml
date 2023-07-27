@@ -11,13 +11,13 @@ jobs:
   init:
     runs-on: ubuntu-latest
     outputs:
-      IMAGE: "${{ env.GKE_IMAGE }}-${{ github.ref_name }}.${{ github.sha }}"
+      IMAGE: "${{ vars.GKE_IMAGE }}-${{ github.ref_name }}.${{ github.sha }}"
       BUILD_SIGNATURE: "${{ github.ref_name }}.${{ github.sha }}"
     steps:
-      - run: echo "Build docker image with tag ${{ env.GKE_IMAGE }}-${{ github.ref_name }}.${{ github.sha }}"
+      - run: echo "Build docker image with tag ${{ vars.GKE_IMAGE }}-${{ github.ref_name }}.${{ github.sha }}"
       - run: echo "Build signature ${{ github.ref_name }}.${{ github.sha }}"
       - run: echo "Login to GKE credential ${{ secrets.GKE_CREDENTIALS }}"
-      - run: echo "Upload build to ${{ env.GKE_REPO }}"
+      - run: echo "Upload build to ${{ vars.GKE_REPO }}"
 
   build:
     if: inputs.FORCE_UPLOAD
