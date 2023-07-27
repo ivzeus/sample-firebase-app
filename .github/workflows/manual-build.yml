@@ -1,4 +1,4 @@
-name: build
+name: manual-build
 run-name: ${{ github.actor }} is running manual build workflow
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
-    output:
+    outputs:
       IMAGE: "${{ env.GKE_IMAGE }}-${{ github.ref_name }}.${{ github.sha }}"
       BUILD_SIGNATURE: "${{ github.ref_name }}.${{ github.sha }}"
     steps:
@@ -19,19 +19,21 @@ jobs:
       - run: echo "Login to GKE credential ${{ secrets.GKE_CREDENTIALS }}"
       - run: echo "Upload build to ${{ env.GKE_REPO }}"
 
-  # build:
-  #   if: $FORCE_UPLOAD
-  #   needs: [init]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         ref: ${{ github.sha }}
-  #     - run: ls
-  #     #- run: echo "Build ${{ github.run_id }}"
-  #     #- run: echo "branch ${{ inputs.BRANCH }}"
-  #     #- run: echo "commit hash ${{ inputs.COMMIT }}"
-  #     - run: npm i
-  #     - run: npm run build
-  #     - run: echo "Push image @${{ github.run_id }}-${{ inputs.COMMIT }} to Artifact registry"
-  #     - run: echo "${{ env.DOCKER_IMAGE }}"
+  build:
+    if: $FORCE_UPLOAD
+    needs: [init]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ needs.init.outputs.IMAGE }}"
+      - run: echo "${{ needs.init.outputs.BUILD_SIGNATURE }}"
+      # - uses: actions/checkout@v3
+      #   with:
+      #     ref: ${{ github.sha }}
+      # - run: ls
+      # #- run: echo "Build ${{ github.run_id }}"
+      # #- run: echo "branch ${{ inputs.BRANCH }}"
+      # #- run: echo "commit hash ${{ inputs.COMMIT }}"
+      # - run: npm i
+      # - run: npm run build
+      # - run: echo "Push image @${{ github.run_id }}-${{ inputs.COMMIT }} to Artifact registry"
+      # - run: echo "${{ env.DOCKER_IMAGE }}"
