@@ -31,7 +31,7 @@ jobs:
       - name: Login to GAR
         uses: docker/login-action@v2
         with:
-          registry: asia.gcr.io-docker.pkg.dev
+          registry: asia.gcr.io
           username: _json_key
           password: ${{ secrets.GKE_CREDENTIALS }}
       #- run: echo "Build ${{ github.run_id }}"
