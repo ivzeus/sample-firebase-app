@@ -34,6 +34,12 @@ jobs:
           registry: asia.gcr.io
           username: _json_key
           password: ${{ secrets.GKE_CREDENTIALS }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: user/app:latest
       #- run: echo "Build ${{ github.run_id }}"
       #- run: echo "branch ${{ inputs.BRANCH }}"
       #- run: echo "commit hash ${{ inputs.COMMIT }}"
